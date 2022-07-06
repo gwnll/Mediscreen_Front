@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <title>Report</title>
+    <link rel="stylesheet" href="../../css/bootstrap.min.css" >
+</head>
+
+<body>
+<div class="container">
+    <div class="row"><h1>Report</h1></div>
+
+    <div class="row">
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th>Patient</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td th:utext="${patient.lastName}"></td>
+                <td th:utext="${patient.firstName}"></td>
+                <td th:utext="${patient.birthdate}"></td>
+                <td th:utext="${patient.birthdate}"></td>
+                <td th:utext="${patient.gender}"></td>
+                <td th:utext="${patient.address}"></td>
+                <td th:utext="${patient.phone}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="row"><span th:utext="${riskLevel}"></span></div>
+
+    <div class="row">
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th>Observations</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each ="note : ${notes}">
+                <td th:utext="${note.observations}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>
+</body>
+</html>

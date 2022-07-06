@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <title>Home</title>
+    <link rel="stylesheet" href="../../css/bootstrap.min.css" >
+</head>
+
+<body>
+<div class="container">
+    <div class="row"><h1>Patients</h1></div>
+    <div class="row">
+        <a href="/patient/add" class="btn btn-primary btn-sm">Add New Patient</a>
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th>Last Name</th>
+                <th>First Name</th>
+                <th>Gender</th>
+                <th>Birthdate</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+
+            <tr th:each ="patient : ${patients}">
+                <td th:utext="${patient.lastName}"></td>
+                <td th:utext="${patient.firstName}"></td>
+                <td th:utext="${patient.gender}"></td>
+                <td th:utext="${patient.birthdate}"></td>
+                <td style="width: 15%" class="text-center">
+                    <a th:href="@{/{id}/note/list(id=${patient.id})}">Notes</a>&nbsp;|&nbsp;
+                    <a th:href="@{/{id}/report(id=${patient.id})}">Report</a>&nbsp;|&nbsp;
+                    <a th:href="@{/patient/update/{id}(id=${patient.id})}">Edit</a>&nbsp;|&nbsp;
+                    <a th:href="@{/patient/delete/{id}(id=${patient.id})}">Delete</a>
+                </td>
+            </tr>
+
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>
