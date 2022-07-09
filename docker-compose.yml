@@ -1,0 +1,82 @@
+version: '3'
+
+services:
+  front:
+    image: mediscreen-front
+    ports:
+      - 8080:8080
+    restart: always
+    networks:
+      - mediscreen
+
+  patients:
+    depends_on:
+      - front
+      - postgres
+    image: mediscreen-patients
+    ports:
+      - 8081:8081
+    restart: always
+    networks:
+      - mediscreen
+
+  notes:
+    depends_on:
+      - front
+      - patients
+    image: mediscreen-notes
+    ports:
+      - 8082:8082
+    restart: always
+    networks:
+      - mediscreen
+
+  reports:
+    depends_on:
+      - front
+      - patients
+      - notes
+    image: mediscreen-reports
+    ports:
+      - 8083:8083
+    restart: always
+    networks:
+      - mediscreen
+
+  postgres:
+    image: postgres
+    restart: always
+    container_name: postgres
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: pmb
+      POSTGRES_DB: mediscreen_patients
+      POSTGRES_HOST_AUTH_METHOD: trust
+    networks:
+      - mediscreen
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8085:8080
+    networks:
+      - mediscreen
+
+  mongodb:
+    image: mongodb
+    restart: always
+    ports:
+      - 27017:27017
+    volumes:
+      - mongo-volume:/data/db
+    networks:
+      - mediscreen
+
+networks:
+  mediscreen:
+    driver: bridge
+
+volumes:
+  database-volume:
+  mongo-volume:
