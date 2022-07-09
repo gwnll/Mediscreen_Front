@@ -12,6 +12,9 @@
 
 <div class="container">
     <div class="row">
+        <a class="btn" th:utext="Home" th:href="@{/patient/list}"></a>
+    </div>
+    <div class="row">
         <h1 th:utext="@{Notes list of {patientName}(patientName=${patientName})}"></h1>
     </div>
     <div class="row">
