@@ -30,7 +30,7 @@ public class NoteController {
         Note note = new Note();
         note.setPatientId(patientId);
         model.addAttribute("note", note);
-        return "/note/add";
+        return "note/add";
     }
 
     @PostMapping("/{patientId}/note/validate")
@@ -49,7 +49,7 @@ public class NoteController {
         model.addAttribute("patientId", patientId);
         model.addAttribute("patientName", patient.getFirstName() + "&nbsp;" + patient.getLastName());
         model.addAttribute("notes", notesProxy.getAllNotes(patientId));
-        return "/note/list";
+        return "note/list";
     }
 
     @GetMapping("/{patientId}/note/update/{noteId}")
@@ -58,14 +58,14 @@ public class NoteController {
         Patient patient = patientsProxy.getPatientById(patientId).orElseThrow(() -> new IllegalArgumentException("Invalid patient Id:" + patientId));
         model.addAttribute("patientName", patient.getFirstName() + "&nbsp;" + patient.getLastName());
         model.addAttribute("note", note);
-        return "/note/update";
+        return "note/update";
     }
 
     @PostMapping("/{patientId}/note/update")
     public String updateNote(@PathVariable Integer patientId, @Valid Note note, BindingResult result, Model
             model) {
         if (result.hasErrors()) {
-            return "/note/update";
+            return "note/update";
         }
         notesProxy.updateNote(note);
         model.addAttribute("notes", notesProxy.getAllNotes(patientId));
